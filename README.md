@@ -1,7 +1,43 @@
-# Sutra External Feed Change Guard
+# Sutra External Feed Guard
 
-Development repository for the local-first Week-1 validation slice.
+**Dependabot for external data feeds, with a reproducible incident packet.**
 
-The product compares an external CSV or JSON observation with an explicitly accepted baseline and emits a deterministic decision envelope. It does not write to customer production data destinations.
+Local-first CLI that compares an external CSV or JSON observation against an explicitly accepted baseline and emits a deterministic decision envelope. It does not write to customer production data destinations.
 
-See `DEMO.md` after the first tracer slice lands.
+## Quick start
+
+```bash
+uv sync --extra dev
+uv run feedguard --help
+```
+
+See [`DEMO.md`](DEMO.md) for a self-guided walkthrough.
+
+## Validation status
+
+Week-1 tracer bullet complete:
+
+- ✅ CSV/JSON loading with canonical digests
+- ✅ Classification for 8 scenarios (unchanged, additive, breaking, alias, malformed, etc.)
+- ✅ Accepted-state journal with immutable envelope
+- ✅ HTML and JSON evidence reports
+- ✅ CLI with documented exit codes
+- ✅ Self-checking scenario scripts
+- ✅ 11 passing tests
+
+## Exit codes
+
+| Code | Meaning |
+|------|---------|
+| 0 | unchanged / safe_additive / known_variant |
+| 2 | review_required |
+| 3 | breaking |
+| 4 | invalid_observation |
+
+## Specification
+
+This is a four-week paid validation experiment. See the full specification at `../AS/Sutra/external-feed-change-guard-specification.md`.
+
+## License
+
+Proprietary — for validation use only.
