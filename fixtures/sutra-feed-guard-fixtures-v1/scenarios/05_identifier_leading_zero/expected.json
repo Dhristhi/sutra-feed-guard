@@ -1,0 +1,40 @@
+{
+  "scenario_id": "05_identifier_leading_zero",
+  "description": "Exactly 12 customer_id values are written in lossy format without leading zeros.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "breaking",
+  "expected_exit_code": 3,
+  "expected_primary_reason": "identifier_format_violation",
+  "expected_reason_codes": [
+    "identifier_format_violation"
+  ],
+  "expected_changed_fields": [
+    "customer_id"
+  ],
+  "expected_affected_record_count": 12,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [
+    "ORD-000217",
+    "ORD-000223",
+    "ORD-000225",
+    "ORD-000233",
+    "ORD-000234",
+    "ORD-000242",
+    "ORD-000252",
+    "ORD-000255",
+    "ORD-000268",
+    "ORD-000273",
+    "ORD-000280",
+    "ORD-000281"
+  ],
+  "must_not_be_classified_as": [
+    "unchanged",
+    "safe_additive",
+    "known_variant",
+    "invalid_observation"
+  ],
+  "notes": [
+    "customer_id format pattern is violated by missing leading zeros."
+  ]
+}

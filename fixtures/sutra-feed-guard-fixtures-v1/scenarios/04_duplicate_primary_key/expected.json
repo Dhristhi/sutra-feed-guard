@@ -1,0 +1,29 @@
+{
+  "scenario_id": "04_duplicate_primary_key",
+  "description": "Last row order_id is replaced with the first row's order_id, creating a duplicate key.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "breaking",
+  "expected_exit_code": 3,
+  "expected_primary_reason": "duplicate_primary_key",
+  "expected_reason_codes": [
+    "duplicate_primary_key"
+  ],
+  "expected_changed_fields": [
+    "order_id"
+  ],
+  "expected_affected_record_count": 2,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [
+    "ORD-000201"
+  ],
+  "must_not_be_classified_as": [
+    "unchanged",
+    "safe_additive",
+    "known_variant",
+    "invalid_observation"
+  ],
+  "notes": [
+    "Two rows share the primary key ORD-000201."
+  ]
+}

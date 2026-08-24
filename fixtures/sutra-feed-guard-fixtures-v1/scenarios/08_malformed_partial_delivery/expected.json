@@ -1,0 +1,26 @@
+{
+  "scenario_id": "08_malformed_partial_delivery",
+  "description": "File is truncated mid-record, causing a parsing failure.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "invalid_observation",
+  "expected_exit_code": 4,
+  "expected_primary_reason": "partial_or_malformed_delivery",
+  "expected_reason_codes": [
+    "partial_or_malformed_delivery"
+  ],
+  "expected_changed_fields": [],
+  "expected_affected_record_count": null,
+  "affected_count_is_exact": false,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [],
+  "must_not_be_classified_as": [
+    "unchanged",
+    "safe_additive",
+    "known_variant",
+    "breaking",
+    "review_required"
+  ],
+  "notes": [
+    "Truncation causes invalid CSV and JSON syntax, parsing is incomplete."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "scenario_id": "02_safe_additive_column",
+  "description": "Add optional partner_note field. 20 records populated, 80 null.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "safe_additive",
+  "expected_exit_code": 0,
+  "expected_primary_reason": "safe_additive_field_added",
+  "expected_reason_codes": [
+    "safe_additive_field_added"
+  ],
+  "expected_changed_fields": [
+    "partner_note"
+  ],
+  "expected_affected_record_count": 100,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": 20,
+  "expected_affected_order_ids": [],
+  "must_not_be_classified_as": [
+    "breaking",
+    "invalid_observation"
+  ],
+  "notes": [
+    "partner_note is added as a safe additive column."
+  ]
+}

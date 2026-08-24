@@ -1,0 +1,27 @@
+{
+  "scenario_id": "03_removed_required_column",
+  "description": "Required currency field is removed from all records.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "breaking",
+  "expected_exit_code": 3,
+  "expected_primary_reason": "required_field_removed",
+  "expected_reason_codes": [
+    "required_field_removed"
+  ],
+  "expected_changed_fields": [
+    "currency"
+  ],
+  "expected_affected_record_count": 100,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [],
+  "must_not_be_classified_as": [
+    "unchanged",
+    "safe_additive",
+    "known_variant",
+    "invalid_observation"
+  ],
+  "notes": [
+    "Required field currency was completely removed."
+  ]
+}

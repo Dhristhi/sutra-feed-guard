@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PartnerOrdersFeed",
+  "description": "Feed schema for Acme Commerce Services orders.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "order_id": {
+        "type": "string",
+        "pattern": "^ORD-[0-9]{6}$"
+      },
+      "customer_id": {
+        "type": "string",
+        "pattern": "^CUS-[0-9]{4}$"
+      },
+      "order_date": {
+        "type": "string",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+      },
+      "exported_at": {
+        "type": "string",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+      },
+      "amount": {
+        "type": "number",
+        "minimum": 0
+      },
+      "currency": {
+        "type": "string",
+        "enum": [
+          "INR",
+          "USD"
+        ]
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "PENDING",
+          "PAID",
+          "CANCELLED",
+          "REFUNDED"
+        ]
+      },
+      "country_code": {
+        "type": "string",
+        "enum": [
+          "IN",
+          "US"
+        ]
+      },
+      "source_system": {
+        "type": "string",
+        "const": "ACME_COMMERCE"
+      }
+    },
+    "required": [
+      "order_id",
+      "customer_id",
+      "order_date",
+      "exported_at",
+      "amount",
+      "currency",
+      "status",
+      "country_code",
+      "source_system"
+    ],
+    "additionalProperties": false
+  }
+}

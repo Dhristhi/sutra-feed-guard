@@ -1,0 +1,37 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sutra-feed-guard"
+version = "0.1.0"
+description = "Local-first change guard for external CSV and JSON feeds"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+  "pyyaml>=6.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+]
+
+[project.scripts]
+feedguard = "feedguard.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/feedguard"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["feedguard"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90

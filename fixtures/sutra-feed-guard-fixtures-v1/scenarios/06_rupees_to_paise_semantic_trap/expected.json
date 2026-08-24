@@ -1,0 +1,30 @@
+{
+  "scenario_id": "06_rupees_to_paise_semantic_trap",
+  "description": "Rename amount to amount_in_paise and scale values by 100.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "breaking",
+  "expected_exit_code": 3,
+  "expected_primary_reason": "unit_semantics_changed",
+  "expected_reason_codes": [
+    "required_field_removed",
+    "unexpected_field_added",
+    "unit_semantics_changed"
+  ],
+  "expected_changed_fields": [
+    "amount",
+    "amount_in_paise"
+  ],
+  "expected_affected_record_count": 100,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [],
+  "must_not_be_classified_as": [
+    "unchanged",
+    "safe_additive",
+    "known_variant",
+    "invalid_observation"
+  ],
+  "notes": [
+    "amount field was removed, unexpected amount_in_paise was added, and currency units were scaled."
+  ]
+}

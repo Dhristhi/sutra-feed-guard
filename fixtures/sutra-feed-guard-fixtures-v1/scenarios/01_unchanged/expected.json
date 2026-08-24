@@ -1,0 +1,23 @@
+{
+  "scenario_id": "01_unchanged",
+  "description": "Rows are reordered deterministically. Field values and schema are semantically identical to day-3 baseline.",
+  "baseline_date": "2026-07-03",
+  "expected_disposition": "unchanged",
+  "expected_exit_code": 0,
+  "expected_primary_reason": "no_material_change",
+  "expected_reason_codes": [
+    "no_material_change"
+  ],
+  "expected_changed_fields": [],
+  "expected_affected_record_count": 0,
+  "affected_count_is_exact": true,
+  "expected_nonempty_new_value_count": null,
+  "expected_affected_order_ids": [],
+  "must_not_be_classified_as": [
+    "breaking",
+    "invalid_observation"
+  ],
+  "notes": [
+    "Row order is insignificant under accepted policy."
+  ]
+}
