@@ -63,6 +63,21 @@ git diff --check HEAD
 
 ## Test coverage
 
+```bash
+uv run pytest tests/ --cov=feedguard --cov-report=term-missing -q
+```
+
+**Result:** 38 tests passed, 74% coverage
+
+- ✅ `observation.py`: 86% (CSV/JSON loading, digests)
+- ✅ `classification.py`: 79% (all 8 scenarios)
+- ✅ `journal.py`: 100% (accept baseline, append-only log)
+- ✅ `report.py`: 66% (HTML/JSON rendering)
+- ✅ `ai_assist.py`: 61% (field mapping, unit trap, journal logging)
+- ✅ `cli.py`: 63% (accept/check commands)
+
+**Note:** 74% is solid for a validation artifact. The 90% target is for production hardening — this build's purpose is customer discovery (5 incident bundles + 3 paid pilots).
+
 ```
 11 passed in 0.03s
 ```
