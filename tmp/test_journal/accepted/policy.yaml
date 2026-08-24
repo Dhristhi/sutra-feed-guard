@@ -1,0 +1,78 @@
+policy_name: sutra_feed_guard_accepted_policy
+version: 1.0.0
+rules:
+  primary_key: order_id
+  required_fields:
+  - order_id
+  - customer_id
+  - order_date
+  - exported_at
+  - amount
+  - currency
+  - status
+  - country_code
+  - source_system
+  field_constraints:
+    order_id:
+      type: string
+      pattern: ^ORD-[0-9]{6}$
+    customer_id:
+      type: string
+      pattern: ^CUS-[0-9]{4}$
+    order_date:
+      type: string
+      format: date
+      pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}$
+    exported_at:
+      type: string
+      format: date-time
+      pattern: ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$
+    amount:
+      type: decimal
+      minimum: 0.0
+      decimal_places: 2
+    currency:
+      type: string
+      enum:
+      - INR
+      - USD
+    status:
+      type: string
+      enum:
+      - PENDING
+      - PAID
+      - CANCELLED
+      - REFUNDED
+    country_code:
+      type: string
+      enum:
+      - IN
+      - US
+    source_system:
+      type: string
+      allowed_values:
+      - ACME_COMMERCE
+  classifications:
+    duplicate_primary_key: critical
+    missing_required_field: critical
+    incompatible_type_change: critical
+    empty_delivery: critical
+  additive_fields:
+    allow_additive: true
+    restrictions: Must not alter existing fields or violate constraints.
+  ordering:
+    field_order_significant: false
+    row_order_significant: false
+  aliases:
+    allowed:
+    - alias: total_amount
+      target: amount
+      scope: scenario_07
+    disallowed:
+    - customer_id
+    - amount_in_paise
+    - currency
+  baseline_widening:
+    automatic: false
+  override_authority:
+    model_generated_suggestions: not_authorized
