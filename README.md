@@ -25,6 +25,14 @@ Week-1 tracer bullet complete:
 - ✅ Self-checking scenario scripts
 - ✅ 11 passing tests
 
+Week-2+ AI extension (demo):
+
+- ✅ Bounded AI assistance with local Ollama (`llama3.2:3b`)
+- ✅ Field mapping suggestions (non-binding)
+- ✅ Unit trap detection (rupees→paise)
+- ✅ AI interactions logged in immutable journal
+- ✅ Deterministic core remains authoritative
+
 ## Exit codes
 
 | Code | Meaning |
