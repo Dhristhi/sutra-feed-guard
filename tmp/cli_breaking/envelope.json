@@ -1,0 +1,17 @@
+{
+  "affected_count": 100,
+  "affected_order_ids": [],
+  "baseline_name": "orders_2026-07-03.csv",
+  "changed_fields": [
+    "currency"
+  ],
+  "disposition": "breaking",
+  "exit_code": 3,
+  "nonempty_new_value_count": null,
+  "observation_name": "input.csv",
+  "primary_reason": "required_field_removed",
+  "reason_codes": [
+    "required_field_removed"
+  ],
+  "version": 1
+}

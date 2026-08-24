@@ -1,0 +1,15 @@
+{
+  "affected_count": null,
+  "affected_order_ids": [],
+  "baseline_name": "orders_2026-07-03.csv",
+  "changed_fields": [],
+  "disposition": "invalid_observation",
+  "exit_code": 4,
+  "nonempty_new_value_count": null,
+  "observation_name": "input.csv",
+  "primary_reason": "partial_or_malformed_delivery",
+  "reason_codes": [
+    "partial_or_malformed_delivery"
+  ],
+  "version": 1
+}
