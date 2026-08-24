@@ -198,21 +198,54 @@ To extend beyond Week-1:
 4. Add `feedguard/remote_ai.py` for bounded model assistance (requires egress authorization record)
 5. Add statistical drift framework for historical baseline comparison
 
-## Week-1 vs Week-2+ boundary
+## Week-1 vs Week-2 boundary
 
-| Feature | Week-1 (complete) | Week-2+ (demo/deferred) |
-|---------|-------------------|------------------------|
-| CSV/JSON parsing | ✅ Deterministic | — |
-| Canonical digests | ✅ SHA-256 | — |
-| Classification rules | ✅ Policy-driven | — |
-| Journal + envelope | ✅ Append-only | — |
-| HTML/JSON reports | ✅ Local rendering | — |
-| CLI commands | ✅ `accept` / `check` | — |
-| AI field mapping | — | ✅ Local Ollama (`llama3.2:3b`), non-binding |
-| AI unit trap detection | — | ✅ Rupees→paise, dollars→cents |
-| AI audit logging | — | ✅ Full interaction trail |
-| Scheduled execution | — | 🔜 GitHub Action |
-| SFTP/S3 acquisition | — | 🔜 Production connectors |
-| Multi-user approvals | — | 🔜 Enterprise workflow |
+| Feature | Week-1 (complete) | Week-2 (complete) | Week-3+ (deferred) |
+|---------|-------------------|-------------------|-------------------|
+| CSV/JSON parsing | ✅ Deterministic | — | — |
+| Canonical digests | ✅ SHA-256 | — | — |
+| Classification rules | ✅ Policy-driven | — | — |
+| Journal + envelope | ✅ Append-only | — | — |
+| HTML/JSON reports | ✅ Local rendering | — | — |
+| CLI commands | ✅ `accept` / `check` | — | — |
+| AI field mapping | — | ✅ Local Ollama (`llama3.2:3b`), non-binding | — |
+| AI unit trap detection | — | ✅ Rupees→paise, dollars→cents | — |
+| AI audit logging | — | ✅ Full interaction trail | — |
+| Scheduled execution | — | — | 🔜 GitHub Action |
+| SFTP/S3 acquisition | — | — | 🔜 Production connectors |
+| Multi-user approvals | — | — | 🔜 Enterprise workflow |
 
-See `src/feedguard/specification.md` for the full four-week scope.
+## When AI is invoked
+
+The AI assistance layer (Week-2) is **optional** and **non-binding**:
+
+1. **Deterministic core runs first** — Classification completes with exit code 0/2/3/4
+2. **AI invoked for suggestions only** — Field mapping, unit trap detection
+3. **AI cannot override disposition** — Deterministic result remains authoritative
+4. **All AI interactions logged** — Full audit trail in `journal.jsonl`
+5. **Local model only** — Ollama (`llama3.2:3b`), no network calls
+
+```
+┌─────────────────────────────────────────┐
+│  Week-1: Deterministic Core (always)    │
+│  - Parse → Digest → Classify → Report   │
+│  - Exit code: 0/2/3/4                   │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│  Week-2: AI Assistance (optional)       │
+│  - Field mapping suggestions            │
+│  - Unit trap detection                  │
+│  - Logged in journal (non-binding)      │
+└─────────────────────────────────────────┘
+                    ↓
+┌─────────────────────────────────────────┐
+│  Human Review / Approval                │
+│  - Binds the final decision             │
+│  - AI never auto-commits                │
+└─────────────────────────────────────────┘
+```
+
+See `scripts/demo_ai_assistance.py` for a complete end-to-end demonstration.
+
+See `specification.md` for the full four-week scope.
