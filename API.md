@@ -140,6 +140,73 @@ render_json_envelope(
 
 ---
 
+## `feedguard.ai_assist`
+
+### `AISuggestion` (dataclass)
+
+```python
+@dataclass
+class AISuggestion:
+    model: str                    # e.g., "llama3.2:3b"
+    prompt_hash: str              # SHA-256 first 16 chars
+    suggestion_type: str          # "field_mapping" | "unit_trap_detection"
+    suggestion: dict[str, Any]    # Model output (parsed JSON)
+    confidence: float             # 0.0-1.0
+    binding: bool = False         # Always False (non-binding)
+```
+
+### `suggest_field_mapping(observation_fields, baseline_fields, model="llama3.2:3b") -> AISuggestion`
+
+Suggest field mappings between observation and baseline feeds.
+
+**Parameters:**
+- `observation_fields`: List of field names in observation
+- `baseline_fields`: List of field names in baseline
+- `model`: Ollama model name (default: `"llama3.2:3b"`)
+
+**Returns:**
+- `AISuggestion` with mappings and confidence
+
+**Example:**
+```python
+from feedguard.ai_assist import suggest_field_mapping
+
+suggestion = suggest_field_mapping(
+    observation_fields=["total_amount", "order_id"],
+    baseline_fields=["amount", "order_id"],
+)
+
+if suggestion.confidence > 0.9:
+    print(f"Suggested: {suggestion.suggestion['mappings']}")
+```
+
+### `detect_unit_trap(baseline_amounts, observation_amounts, model="llama3.2:3b") -> AISuggestion`
+
+Detect potential unit changes (rupees→paise, dollars→cents).
+
+**Parameters:**
+- `baseline_amounts`: List of baseline amount values
+- `observation_amounts`: List of observation amount values
+- `model`: Ollama model name
+
+**Returns:**
+- `AISuggestion` with hypothesis and reasoning
+
+### `log_ai_interaction(journal_dir, suggestion, deterministic_disposition, final_disposition)`
+
+Log AI interaction in journal with full audit trail.
+
+**Parameters:**
+- `journal_dir`: Path to journal directory
+- `suggestion`: `AISuggestion` object
+- `deterministic_disposition`: Core classification result
+- `final_disposition`: Final decision (may differ if human overrides)
+
+**Side effects:**
+- Appends to `journal.jsonl` with timestamp, prompt_hash, audit_digest
+
+---
+
 ## `feedguard.cli`
 
 Command-line interface (entry point: `feedguard`).

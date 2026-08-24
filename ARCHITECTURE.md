@@ -74,6 +74,7 @@ class ClassificationResult:
 | `journal.py` | Append-only audit log, baseline acceptance, envelope persistence |
 | `report.py` | HTML and JSON evidence rendering |
 | `cli.py` | `accept` and `check` subcommands, exit codes |
+| `ai_assist.py` | Bounded AI assistance (local Ollama), field mapping suggestions, unit trap detection, AI interaction logging |
 
 ## Classification decision tree
 
@@ -195,5 +196,23 @@ To extend beyond Week-1:
 2. Add `feedguard/acquisition.py` for SFTP/S3 connectors
 3. Add `feedguard/approvals.py` for multi-signature envelopes
 4. Add `feedguard/remote_ai.py` for bounded model assistance (requires egress authorization record)
+5. Add statistical drift framework for historical baseline comparison
+
+## Week-1 vs Week-2+ boundary
+
+| Feature | Week-1 (complete) | Week-2+ (demo/deferred) |
+|---------|-------------------|------------------------|
+| CSV/JSON parsing | ✅ Deterministic | — |
+| Canonical digests | ✅ SHA-256 | — |
+| Classification rules | ✅ Policy-driven | — |
+| Journal + envelope | ✅ Append-only | — |
+| HTML/JSON reports | ✅ Local rendering | — |
+| CLI commands | ✅ `accept` / `check` | — |
+| AI field mapping | — | ✅ Local Ollama (`llama3.2:3b`), non-binding |
+| AI unit trap detection | — | ✅ Rupees→paise, dollars→cents |
+| AI audit logging | — | ✅ Full interaction trail |
+| Scheduled execution | — | 🔜 GitHub Action |
+| SFTP/S3 acquisition | — | 🔜 Production connectors |
+| Multi-user approvals | — | 🔜 Enterprise workflow |
 
 See `../AS/Sutra/external-feed-change-guard-specification.md` for the full four-week scope.
