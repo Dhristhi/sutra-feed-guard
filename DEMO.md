@@ -145,6 +145,21 @@ uv run pytest tests/ --cov=feedguard --cov-report=term-missing
 
 Expected: all tests pass with >90% coverage.
 
+## 8. Demo: bounded AI assistance (Week-2+)
+
+```bash
+uv run python scripts/demo_ai_assistance.py
+```
+
+This demonstrates:
+- Deterministic classification runs first (exit code 0/2/3/4)
+- Local Ollama MLX model (`llama3.2:3b`) suggests field mappings
+- AI detects unit traps (rupees→paise)
+- All AI interactions logged in immutable journal
+- AI is **non-binding**—deterministic disposition remains authoritative
+
+See `demo_ai_journal/journal.jsonl` for the full audit trail.
+
 ## Exit codes
 
 | Code | Meaning |

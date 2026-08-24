@@ -69,7 +69,7 @@ def main() -> int:
     # Step 3: Invoke bounded AI assistance (Week-2+ extension)
     print("STEP 3: Bounded AI assistance (local Ollama MLX)")
     print("-" * 40)
-    print("Model: gemma4:31b-mlx (local, no network)")
+    print("Model: llama3.2:3b (local, no network)")
     print()
 
     # Load observations for AI analysis

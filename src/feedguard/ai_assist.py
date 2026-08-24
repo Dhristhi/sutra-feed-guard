@@ -19,25 +19,78 @@ class AISuggestion:
     binding: bool = False
 
 
+def _clean_ansi(text: str) -> str:
+    """Emulate cursor movement and clear line escape sequences to get clean text."""
+    lines = [""]
+    r, c = 0, 0
+    i = 0
+    n = len(text)
+    while i < n:
+        char = text[i]
+        if char == '\n':
+            r += 1
+            if r >= len(lines):
+                lines.append("")
+            c = 0
+            i += 1
+        elif char == '\r':
+            c = 0
+            i += 1
+        elif char == '\b':
+            c = max(0, c - 1)
+            i += 1
+        elif char == '\x1b':
+            if i + 1 < n and text[i+1] == '[':
+                j = i + 2
+                while j < n and not text[j].isalpha():
+                    j += 1
+                if j < n:
+                    cmd = text[j]
+                    args = text[i+2:j]
+                    if cmd == 'D':
+                        dist = int(args) if args.isdigit() else 1
+                        c = max(0, c - dist)
+                    elif cmd == 'K':
+                        mode = int(args) if args.isdigit() else 0
+                        if mode == 0:
+                            lines[r] = lines[r][:c]
+                        elif mode == 1:
+                            lines[r] = " " * c + lines[r][c:]
+                        elif mode == 2:
+                            lines[r] = ""
+                    i = j + 1
+                else:
+                    i += 1
+            else:
+                i += 1
+        else:
+            line = lines[r]
+            if c < len(line):
+                lines[r] = line[:c] + char + line[c+1:]
+            else:
+                lines[r] = line + " " * (c - len(line)) + char
+            c += 1
+            i += 1
+    return "\n".join(lines)
+
+
 def _ollama_chat(model: str, prompt: str) -> str:
     """Call local Ollama with MLX model. No network calls."""
-    import re
     full_prompt = f"""You must respond with ONLY valid JSON. No explanations, no thinking tokens, no markdown.
 
 {prompt}
 
 JSON response:"""
     result = subprocess.run(
-        ["ollama", "run", model, full_prompt],
+        ["ollama", "run", model, "--format", "json", "--nowordwrap", full_prompt],
         capture_output=True,
         text=True,
+        stdin=subprocess.DEVNULL,
         timeout=120,
     )
     if result.returncode != 0:
         raise RuntimeError(f"Ollama failed: {result.stderr}")
-    # Strip ANSI escape codes
-    clean = re.sub(r'\x1b\[[0-9;]*[A-Za-z]', '', result.stdout)
-    return clean
+    return _clean_ansi(result.stdout)
 
 
 def _hash_prompt(prompt: str) -> str:
@@ -110,6 +163,10 @@ Observation amounts (sample): {observation_amounts[:10]}
 Baseline mean: {sum(baseline_amounts)/len(baseline_amounts):.2f}
 Observation mean: {sum(observation_amounts)/len(observation_amounts):.2f}
 Ratio: {(sum(observation_amounts)/len(observation_amounts)) / max(sum(baseline_amounts)/len(baseline_amounts), 0.01):.2f}x
+
+Rules:
+- If the Ratio is approximately 100.00x, then set likely_unit_change to true, hypothesis to rupees_to_paise (or dollars_to_cents depending on currency), and confidence to 0.95.
+- If the Ratio is approximately 1.00x, then set likely_unit_change to false, hypothesis to none, and confidence to 1.00.
 
 Return ONLY valid JSON:
 {{
