@@ -215,4 +215,4 @@ To extend beyond Week-1:
 | SFTP/S3 acquisition | — | 🔜 Production connectors |
 | Multi-user approvals | — | 🔜 Enterprise workflow |
 
-See `../AS/Sutra/external-feed-change-guard-specification.md` for the full four-week scope.
+See `src/feedguard/specification.md` for the full four-week scope.

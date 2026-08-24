@@ -177,4 +177,4 @@ This is the Week-1 tracer bullet. The four-week validation boundary adds:
 - Five real customer artifact bundles
 - Paid shadow pilots with three teams
 
-See `../AS/Sutra/external-feed-change-guard-specification.md` for the full specification.
+See `src/feedguard/specification.md` for the full specification.

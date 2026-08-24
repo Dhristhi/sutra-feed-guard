@@ -44,7 +44,7 @@ Week-2+ AI extension (demo):
 
 ## Specification
 
-This is a four-week paid validation experiment. See the full specification at `../AS/Sutra/external-feed-change-guard-specification.md`.
+This is a four-week paid validation experiment. See the full specification at `src/feedguard/specification.md`.
 
 ## License
 
