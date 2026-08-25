@@ -42,9 +42,49 @@ Week-2+ AI extension (demo):
 | 3 | breaking |
 | 4 | invalid_observation |
 
-## Specification
+## How Feed Guard differs from other integration solutions
 
-This is a four-week paid validation experiment. See the full specification at `specification.md`.
+| Category | Typical approach | Feed Guard approach |
+|----------|-----------------|---------------------|
+| **Schema validation** | Static JSON Schema, Pandera, Frictionless — rigid, brittle | Canonical digests + policy-driven rules — detects structural AND semantic drift |
+| **Field mapping** | Manual configuration or one-time AI inference | Deterministic alias table (auditable) + optional AI suggestions (logged, non-binding) |
+| **Unit changes** | Silent corruption (rupees→paise) | Explicit detection via magnitude analysis + AI hypothesis generation |
+| **Incident response** | Logs, alerts, manual investigation | Reproducible incident packet with exact affected records and contract impact |
+| **Audit trail** | Ephemeral or separate system | Immutable journal with every decision, AI interaction, and human approval |
+| **Integration posture** | Transform and publish (risky) | Observe and classify (fail-safe) — never writes to production destinations |
+| **AI integration** | Black-box autonomous decisions | Bounded assistance: deterministic core first, AI suggestions second, human binds |
+
+### The intelligence stack
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  Layer 3: AI Assistance (optional, non-binding)         │
+│  - Suggests field mappings with confidence scores       │
+│  - Detects unit traps (rupees→paise, dollars→cents)    │
+│  - All suggestions logged with prompt hashes            │
+│  - NEVER overrides deterministic disposition            │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│  Layer 2: Deterministic Core (always authoritative)     │
+│  - SHA-256 canonical digests (format-invariant)         │
+│  - Policy-driven classification (explicit rules)        │
+│  - Affected-record enumeration (exact blast radius)     │
+│  - Exit codes: 0 (pass), 2 (review), 3 (breaking), 4    │
+└─────────────────────────────────────────────────────────┘
+                        ↑
+┌─────────────────────────────────────────────────────────┐
+│  Layer 1: Parsers (robust, local)                       │
+│  - CSV: strict mode, no implicit coercion               │
+│  - JSON: array-of-objects validation                    │
+│  - Decimal normalization (currency-safe)                │
+│  - Identifier format validation (leading zeros, etc.)   │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Why this matters:** Other tools are either purely static (rigid schemas) or AI-dependent (unpredictable). Feed Guard is **deterministic-first with bounded AI assistance** — you get the reliability of explicit rules with the adaptability of model suggestions, while maintaining a complete audit trail for regulated environments.
+
+See `ARCHITECTURE.md` for the full Week-1 vs Week-2 boundary and `scripts/demo_ai_assistance.py` for a live demonstration.
 
 ## License
 
