@@ -219,7 +219,23 @@ To extend this release:
 | Feature | Status |
 |---------|--------|
 | SFTP/S3 acquisition | 🔜 Production connectors |
-| Multi-user approvals | 🔜 Enterprise workflow |
+
+## Future features (exploratory)
+
+These are design concepts, not committed deliverables. Implementation depends on customer workflow requirements.
+
+### Multi-user approval workflows
+
+The current release is single-user CLI. For regulated environments requiring multiple sign-offs, we are evaluating:
+
+| Approach | How it works | Trade-offs |
+|----------|--------------|------------|
+| **Shared journal directory** | Network mount (S3, NFS) where multiple users run `feedguard approve --sign` | Requires infra setup; file locking complexity |
+| **Signature chain** | Each approver adds cryptographic signature to `envelope.json` | Complex key management; verifiable audit trail |
+| **Email/Slack workflow** | CLI outputs evidence packet → humans approve via existing tools → log decision | Manual, but matches real workflows; no new infrastructure |
+| **Hosted control plane** | Sutra Control Plane tracks approvals; CLI checks in before accepting | Requires building the hosted product; cleanest UX |
+
+**Design principle:** Multi-user approval must not compromise the local-first, auditable core. We will implement based on actual customer sign-off processes, not hypothetical requirements.
 
 ## When AI is invoked
 
