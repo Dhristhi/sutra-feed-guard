@@ -249,16 +249,16 @@ The AI assistance layer is **optional** and **non-binding**:
 
 ```
 ┌─────────────────────────────────────────┐
-│  Week-1: Deterministic Core (always)    │
+│  Deterministic Core (always runs)       │
 │  - Parse → Digest → Classify → Report   │
 │  - Exit code: 0/2/3/4                   │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
-│  Week-2: AI Assistance (optional)       │
+│  AI Assistance (optional, non-binding)  │
 │  - Field mapping suggestions            │
 │  - Unit trap detection                  │
-│  - Logged in journal (non-binding)      │
+│  - Logged in journal                    │
 └─────────────────────────────────────────┘
                     ↓
 ┌─────────────────────────────────────────┐
