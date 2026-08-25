@@ -218,7 +218,6 @@ To extend this release:
 
 | Feature | Status |
 |---------|--------|
-| Scheduled execution | 🔜 GitHub Action |
 | SFTP/S3 acquisition | 🔜 Production connectors |
 | Multi-user approvals | 🔜 Enterprise workflow |
 
