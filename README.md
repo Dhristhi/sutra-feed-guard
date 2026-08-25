@@ -15,7 +15,7 @@ See [`DEMO.md`](DEMO.md) for a self-guided walkthrough.
 
 ## Validation status
 
-Week-1 tracer bullet complete:
+**Complete and ready for use:**
 
 - ✅ CSV/JSON loading with canonical digests
 - ✅ Classification for 8 scenarios (unchanged, additive, breaking, alias, malformed, etc.)
@@ -23,10 +23,7 @@ Week-1 tracer bullet complete:
 - ✅ HTML and JSON evidence reports
 - ✅ CLI with documented exit codes
 - ✅ Self-checking scenario scripts
-- ✅ 11 passing tests
-
-Week-2+ AI extension (demo):
-
+- ✅ 38 passing tests (74% coverage)
 - ✅ Bounded AI assistance with local Ollama (`llama3.2:3b`)
 - ✅ Field mapping suggestions (non-binding)
 - ✅ Unit trap detection (rupees→paise)
@@ -84,7 +81,7 @@ Week-2+ AI extension (demo):
 
 **Why this matters:** Other tools are either purely static (rigid schemas) or AI-dependent (unpredictable). Feed Guard is **deterministic-first with bounded AI assistance** — you get the reliability of explicit rules with the adaptability of model suggestions, while maintaining a complete audit trail for regulated environments.
 
-See `ARCHITECTURE.md` for the full Week-1 vs Week-2 boundary and `scripts/demo_ai_assistance.py` for a live demonstration.
+See `ARCHITECTURE.md` for the complete feature list and roadmap.
 
 ## License
 

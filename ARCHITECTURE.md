@@ -179,18 +179,20 @@ The HTML report (`report.html`) renders this in a human-readable format with col
 - Journal entries are append-only with UTC timestamps
 - ZIP fixtures use fixed timestamps for reproducibility
 
-## Limitations (Week-1 scope)
+## Limitations (current release)
 
-- No scheduled execution (GitHub Action deferred)
+The current release is **local-first and observational**:
+
+- No scheduled execution (manual CLI invocation)
 - No SFTP/S3 acquisition (local files only)
 - No production writes (read-only analysis)
-- No remote AI integration (deterministic rules only)
+- No remote AI integration (local Ollama only)
 - No multi-user approval workflows
 - No cryptographic tamper resistance (digests are not signatures)
 
 ## Extension points
 
-To extend beyond Week-1:
+To extend this release:
 
 1. Add `feedguard/schedule.py` for GitHub Action entry point
 2. Add `feedguard/acquisition.py` for SFTP/S3 connectors
@@ -198,26 +200,31 @@ To extend beyond Week-1:
 4. Add `feedguard/remote_ai.py` for bounded model assistance (requires egress authorization record)
 5. Add statistical drift framework for historical baseline comparison
 
-## Week-1 vs Week-2 boundary
+## Current capabilities
 
-| Feature | Week-1 (complete) | Week-2 (complete) | Week-3+ (deferred) |
-|---------|-------------------|-------------------|-------------------|
-| CSV/JSON parsing | ✅ Deterministic | — | — |
-| Canonical digests | ✅ SHA-256 | — | — |
-| Classification rules | ✅ Policy-driven | — | — |
-| Journal + envelope | ✅ Append-only | — | — |
-| HTML/JSON reports | ✅ Local rendering | — | — |
-| CLI commands | ✅ `accept` / `check` | — | — |
-| AI field mapping | — | ✅ Local Ollama (`llama3.2:3b`), non-binding | — |
-| AI unit trap detection | — | ✅ Rupees→paise, dollars→cents | — |
-| AI audit logging | — | ✅ Full interaction trail | — |
-| Scheduled execution | — | — | 🔜 GitHub Action |
-| SFTP/S3 acquisition | — | — | 🔜 Production connectors |
-| Multi-user approvals | — | — | 🔜 Enterprise workflow |
+| Feature | Status |
+|---------|--------|
+| CSV/JSON parsing | ✅ Deterministic, format-invariant |
+| Canonical digests | ✅ SHA-256 |
+| Classification rules | ✅ Policy-driven (8 scenarios) |
+| Journal + envelope | ✅ Append-only audit trail |
+| HTML/JSON reports | ✅ Local rendering |
+| CLI commands | ✅ `accept` / `check` |
+| AI field mapping | ✅ Local Ollama (`llama3.2:3b`), non-binding |
+| AI unit trap detection | ✅ Rupees→paise, dollars→cents |
+| AI audit logging | ✅ Full interaction trail |
+
+## Roadmap (future)
+
+| Feature | Status |
+|---------|--------|
+| Scheduled execution | 🔜 GitHub Action |
+| SFTP/S3 acquisition | 🔜 Production connectors |
+| Multi-user approvals | 🔜 Enterprise workflow |
 
 ## When AI is invoked
 
-The AI assistance layer (Week-2) is **optional** and **non-binding**:
+The AI assistance layer is **optional** and **non-binding**:
 
 1. **Deterministic core runs first** — Classification completes with exit code 0/2/3/4
 2. **AI invoked for suggestions only** — Field mapping, unit trap detection
