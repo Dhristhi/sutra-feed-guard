@@ -194,11 +194,11 @@ The current release is **local-first and observational**:
 
 To extend this release:
 
-1. Add `feedguard/schedule.py` for GitHub Action entry point
-2. Add `feedguard/acquisition.py` for SFTP/S3 connectors
-3. Add `feedguard/approvals.py` for multi-signature envelopes
-4. Add `feedguard/remote_ai.py` for bounded model assistance (requires egress authorization record)
-5. Add statistical drift framework for historical baseline comparison
+1. **Custom schedulers**: Wrap `feedguard check` in cron, Airflow, Dagster, or internal orchestrators (not GitHub Actions for business logic)
+2. **Connectors**: Add `feedguard/acquisition.py` for SFTP/S3/HTTPS download before local classification
+3. **Approval integrations**: Add `feedguard/approvals.py` for Slack/email/ServiceNow sign-off workflows
+4. **Remote AI**: Add `feedguard/remote_ai.py` for bounded model assistance (requires egress authorization record)
+5. **Statistical drift**: Add distribution comparison framework for historical baseline analysis
 
 ## Current capabilities
 
